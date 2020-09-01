@@ -30,7 +30,7 @@ public class Logger {
     
         File newFile = new File(fileName);
         try {
-            System.out.println("AvajLauncher launched");
+            System.out.println("\nAvajLauncher launched");
 			newFile.createNewFile();
 		} catch (IOException e) {
             System.out.println("An error occurred");

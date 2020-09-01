@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import src.aircrafts.AircraftFactory;
+import src.aircrafts.Flyable;
 import src.tower.WeatherTower;
 
 class MyException extends Exception {
@@ -83,6 +84,8 @@ class validateInput {
     }
 }
 
+class AircraftProduction extends AircraftFactory { }
+
 public class Main {
 
     public static void main(String[] args) throws MyException {
@@ -102,7 +105,7 @@ public class Main {
                     data = readerScanner.nextLine().split("\t+| ");
                     validateInput.validateAircraftType(data[0]);
                     validateInput.validateCoordinates(data);
-                    weatherTower.registerToWeatherTower(new AircraftFactory().newAircraft(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4])));
+                    weatherTower.registerToWeatherTower(AircraftProduction.newAircraft(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4])));
                 }
 
                 int index = 0;
@@ -116,7 +119,7 @@ public class Main {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Program exited successfully. Check simulation.txt got more information");
+                System.out.println("\nProgram exited successfully.\nCheck simulation.txt for more information\n");
             } catch (MyException e) {
                 System.out.println(e.getMessage());
             }

@@ -2,7 +2,7 @@ package src.aircrafts;
 
 import src.coordinates.Coordinates;
 
-public class Aircraft {
+public abstract class Aircraft {
     
     protected long id;
     protected String name;
