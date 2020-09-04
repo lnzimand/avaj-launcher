@@ -5,13 +5,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import src.aircrafts.AircraftFactory;
-import src.aircrafts.Flyable;
 import src.tower.WeatherTower;
 
 class MyException extends Exception {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     public MyException(String description) {
@@ -65,21 +62,17 @@ class validateInput {
         return null;
     }
 
-    public void validateAircraftType(String aircraftName) {
+    public void validateAircraftType(String aircraftName) throws MyException {
 
-        try {
-            if (aircraftName.equals("Baloon")) {
-                return;
-            } else if (aircraftName.equals("JetPlane")) {
-                return;
-            } else if (aircraftName.equals("Helicopter")) {
-                return;
-            } else {
-                throw new MyException(
-                        "\nError:\tAircraft Name\nUsage:\tAllowed aircrafts names are: \"Baloon\" \"JetPlane\" \"Helicopter\"\n");
-            }
-        } catch (MyException e) {
-            System.out.println(e.getMessage());
+        if (aircraftName.equals("Baloon")) {
+            return;
+        } else if (aircraftName.equals("JetPlane")) {
+            return;
+        } else if (aircraftName.equals("Helicopter")) {
+            return;
+        } else {
+            throw new MyException(
+                    "\nError:\tAircraft Name\nUsage:\tAllowed aircrafts names are: \"Baloon\" \"JetPlane\" & \"Helicopter\"\n");
         }
     }
 }
@@ -100,11 +93,18 @@ public class Main {
                 WeatherTower weatherTower = new WeatherTower();
 
                 int iteration = validateInput.getIterationNumber(readerScanner.nextLine());
-                Logger.createFile();
                 while (readerScanner.hasNextLine()) {
-                    data = readerScanner.nextLine().split("\t+| ");
-                    validateInput.validateAircraftType(data[0]);
+                    data = readerScanner.nextLine().split("\\s+");
                     validateInput.validateCoordinates(data);
+                    validateInput.validateAircraftType(data[0]);
+                }
+                
+                Logger.createFile();
+                readerScanner = validateInput.getScanner(input);
+                readerScanner.nextLine();
+                System.out.println(readerScanner.hasNextLine());
+                while (readerScanner.hasNextLine()) {
+                    data = readerScanner.nextLine().split("\\s+");
                     weatherTower.registerToWeatherTower(AircraftProduction.newAircraft(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4])));
                 }
 

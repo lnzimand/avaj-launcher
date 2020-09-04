@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 public class Logger {
 
     private static final String fileName = "simulation.txt";
-    private static FileWriter fileWriter = null;
-    private static PrintWriter printWriter = null;
+    private static FileWriter fileWriter;
+    private static PrintWriter printWriter;
 
     public static void writeToFile(String message) {
         try {
@@ -17,8 +17,8 @@ public class Logger {
                 fileWriter = new FileWriter(fileName);
             }
             if (printWriter == null) {
-                printWriter = new PrintWriter(fileWriter);
-            }
+                printWriter = new PrintWriter(fileWriter); 
+            } 
             printWriter.println(message);
         } catch (IOException e) {
             e.printStackTrace();
